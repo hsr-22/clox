@@ -75,6 +75,19 @@ static InterpretResult run() {
 }
 
 InterpretResult interpret(const char* source) {
-    compile(source);
-    return INTERPRET_OK;
+    Chunk chunk;
+    initChunk(&chunk);
+
+    if (!compile(source, &chunk)) { // compile the source code into bytecode
+        freeChunk(&chunk);
+        return INTERPRET_COMPILE_ERROR;
+    }
+
+    vm.chunk = &chunk; // set the VM's chunk to the one we just compiled
+    vm.ip = vm.chunk->code; // set the VM's instruction pointer to the first byte of the bytecode
+
+    InterpretResult result = run(); // run the bytecode
+
+    freeChunk(&chunk);
+    return result;
 }
