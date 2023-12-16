@@ -6,10 +6,17 @@
 
 typedef enum {
     OP_CONSTANT,
+    OP_NIL,
+    OP_TRUE,
+    OP_FALSE,
+    OP_EQUAL, // Instead of OP_NOT_EQUAL, we use OP_EQUAL followed by an OP_NOT
+    OP_GREATER, // Instead of OP_LESS_EQUAL, we use OP_GREATER followed by an OP_NOT
+    OP_LESS, // Instead of OP_GREATER_EQUAL, we use OP_LESS followed by an OP_NOT. There is one problem in this - IEEE 754, When operand is NaN then all comparison return false, but we have assumed the negation always true.
     OP_ADD,
     OP_SUBTRACT,
     OP_MULTIPLY,
     OP_DIVIDE,
+    OP_NOT,
     OP_NEGATE,
     OP_RETURN,
 } OpCode;
