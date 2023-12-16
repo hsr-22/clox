@@ -32,9 +32,11 @@ static void runtimeError(const char* format, ...) {
 // VM uses a stack to manage the temporary values
 void initVM() {
     resetStack();
+    vm.objects = NULL;
 }
 
 void freeVM() {
+    freeObjects();
 }
 
 void push(Value value) {
