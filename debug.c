@@ -11,6 +11,7 @@ void disassembleChunk(Chunk* chunk, const char* name) {
     }
 }
 
+// We need to print the constant value in the disassembled code
 static int constantInstruction(const char* name, Chunk* chunk,
                                int offset) {
     uint8_t constant = chunk->code[offset + 1];
@@ -20,12 +21,13 @@ static int constantInstruction(const char* name, Chunk* chunk,
     return offset + 2;
 }
 
+// We need to print the name of the global variable in the disassembled code
 static int simpleInstruction(const char* name, int offset) {
     printf("%s\n", name);
     return offset + 1;
 }
 
-int disassembleInstruction(Chunk*chunk, int offset) {
+int disassembleInstruction(Chunk* chunk, int offset) {
     printf("%04d ", offset);
     if (offset > 0 && 
         chunk->lines[offset] == chunk->lines[offset - 1]) {
@@ -46,8 +48,12 @@ int disassembleInstruction(Chunk*chunk, int offset) {
             return simpleInstruction("OP_FALSE", offset);
         case OP_POP:
             return simpleInstruction("OP_POP", offset);
+        case OP_GET_GLOBAL:
+            return constantInstruction("OP_GET_GLOBAL", chunk, offset);
         case OP_DEFINE_GLOBAL:
             return constantInstruction("OP_DEFINE_GLOBAL", chunk, offset);
+        case OP_SET_GLOBAL:
+            return constantInstruction("OP_SET_GLOBAL", chunk, offset);
         case OP_EQUAL:
             return simpleInstruction("OP_EQUAL", offset);
         case OP_GREATER:

@@ -10,3 +10,4 @@ fun showVariable() {
 var global = "after";
 showVariable();
 ```
+- Lox doesn't do *implicit* variable declaration
