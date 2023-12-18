@@ -10,8 +10,10 @@ typedef enum {
     OP_TRUE,
     OP_FALSE,
     OP_POP,
+    OP_GET_LOCAL,
     OP_GET_GLOBAL,
     OP_DEFINE_GLOBAL,
+    OP_SET_LOCAL,
     OP_SET_GLOBAL,
     OP_EQUAL, // Instead of OP_NOT_EQUAL, we use OP_EQUAL followed by an OP_NOT
     OP_GREATER, // Instead of OP_LESS_EQUAL, we use OP_GREATER followed by an OP_NOT
