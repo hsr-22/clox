@@ -2,11 +2,11 @@
 
 - Global variables in Lox are "**late bound**", or resolved dynamically. <br> This means something like the following works - 
 
-''' 
+```
 fun showVariable() {
     print global;
 }
 
 var global = "after";
 showVariable();
-'''
+```
